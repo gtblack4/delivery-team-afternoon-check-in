@@ -1,0 +1,10 @@
+public render = (): ReactNode => {
+  return (
+    <span>
+      Hello, {this.props.args["name"]}! &nbsp;
+      <button onClick={this.onClicked} disabled={this.props.disabled}>
+        Click Me!
+      </button>
+    </span>
+  )
+}

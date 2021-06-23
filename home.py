@@ -3,15 +3,14 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import pyperclip
+import streamlit.components.v1 as components
+import tkinter as tk
 def main():
 	st.set_page_config(page_title="Afternoon Check In", page_icon=None, layout='centered', initial_sidebar_state='auto')
 	#Header
 	st.title("The Afternoon Check In")
 	st.markdown(getQuestion())
 	st.markdown(getTeam(),unsafe_allow_html=True)
-	if st.button(label = "foobar"):
-		pyperclip.copy(getQuestion() + getTeam())
-
 
 #reads from the deliveryTeam CSV and randomizes the list. Puts Andy last
 def getTeam():
@@ -30,6 +29,8 @@ def getQuestion():
 	randomQuestion = soup.find_all('p')[3].getText()
 	
 	return randomQuestion
+
+
 
 if __name__ == '__main__':
 	main()
