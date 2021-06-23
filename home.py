@@ -1,9 +1,6 @@
 import streamlit as st
-import random
 from bs4 import BeautifulSoup
 import requests
-from tabulate import tabulate
-import csv
 import pandas as pd
 def main():
 	#Header
