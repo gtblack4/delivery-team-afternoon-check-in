@@ -3,3 +3,5 @@ pandas
 bs4
 requests
 pyperclip
+bokeh
+streamlit_bokeh_events
