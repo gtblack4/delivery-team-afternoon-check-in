@@ -58,7 +58,7 @@ def getTeam():
 	teamList = pd.read_csv('deliveryTeam.csv',sep=",",header=None)
 	teamList = teamList.sample(frac=1)	#This randomizes it?
 	
-	#st.write(teamList)
+	st.write(teamList)
 	return teamList
 
 #This curls the webpage and magically gets the paragraph with the question
