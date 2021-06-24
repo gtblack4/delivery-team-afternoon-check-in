@@ -11,16 +11,9 @@ def main():
 	st.title("The Afternoon Check In")
 	team = getTeam()
 	copyText = buildCopy(team)
-	#question = pd.DataFrame[question]
-
-	#teamList = team.to_html(header=None,index=None)
-	#st.write(getQuestion())
 	st.markdown(copyText.to_html(header=None,index=None),unsafe_allow_html=True)
 	
-
-	#st.dataframe(df)
-	
-	
+	#this is a container running the button code. Stolen from stack overflow. Not quite sure how it works
 	copy_button = Button(label="Copy to Clipboard")
 
 	copy_button.js_on_event("button_click", CustomJS(args=dict(copyText=copyText.to_csv(sep='\t',header=None,index=None)), code="""
@@ -35,29 +28,29 @@ def main():
     override_height=75,
     debounce_time=0)
 	
-#reads from the deliveryTeam CSV and randomizes the list. Puts Andy last
+#Takes the team and randomizes the list, resets the index, and then puts Andy last
 
 def buildCopy(team):
 	team = pd.DataFrame(team)
+	#needs the brackets to turn it to a dataframe
 	question = [getQuestion()]
 	andy = pd.DataFrame(["Andy"])
 
-
-
-
+	#adds the question into -1 index
 	team.loc[-1] = question
+	#moves everything up
 	team.index = team.index + 1
-
+	#sorts the index back to normal
 	copyText = team.sort_index()
 
 	copyText = copyText.append(andy)
 	return copyText
 
 def getTeam():
-	
+	#reads from the csv file and randomizes the list
 	teamList = pd.read_csv('deliveryTeam.csv',sep=",",header=None)
 	teamList = teamList.sample(frac=1)	#This randomizes it?
-	
+	teamList.reset_index(drop=True,inplace=True)
 	return teamList
 
 #This curls the webpage and magically gets the paragraph with the question
@@ -73,4 +66,3 @@ def getQuestion():
 
 if __name__ == '__main__':
 	main()
-
