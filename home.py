@@ -9,6 +9,7 @@ def main():
 	st.set_page_config(page_title="Afternoon Check In", page_icon=None, layout='centered', initial_sidebar_state='auto')
 	#Header
 	st.title("The Afternoon Check In")
+	st.text("please give me a raise")
 	team = getTeam()
 	copyText = buildCopy(team)
 	st.markdown(copyText.to_html(header=None,index=None),unsafe_allow_html=True)
