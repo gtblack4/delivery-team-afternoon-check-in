@@ -5,18 +5,24 @@ import pandas as pd
 from bokeh.models.widgets import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
+from random import randrange
+
 def main():
 	st.set_page_config(page_title="Afternoon Check In", page_icon=None, layout='centered', initial_sidebar_state='auto')
 	#Header
 	st.title("The Afternoon Check In")
-	st.text("please give me a raise")
+	st.text(getEasterText())
+	st.button('Refresh Question')
+	   
+
+	
 	team = getTeam()
 	copyText = buildCopy(team)
+
 	st.markdown(copyText.to_html(header=None,index=None),unsafe_allow_html=True)
 	
 	#this is a container running the button code. Stolen from stack overflow. Not quite sure how it works
 	copy_button = Button(label="Copy to Clipboard")
-
 	copy_button.js_on_event("button_click", CustomJS(args=dict(copyText=copyText.to_csv(sep='\t',header=None,index=None)), code="""
     navigator.clipboard.writeText(copyText);
     """))
@@ -63,7 +69,22 @@ def getQuestion():
 	
 	return randomQuestion
 
-
+def getEasterText():
+	randInt = randrange(1,20)
+	easterText = " "
+	if randInt == 1:
+		easterText = "please give me a raise"
+	elif randInt == 2:
+		easterText = "If you want to support our development. Venmo me @gtblack4"
+	elif randInt == 3:
+		easterText = "I developed this during work hours! Don't tell Andy."
+	elif randInt== 4:
+		easterText = "Thank you https://conversationstartersworld.com for supplying the questions"
+	elif randInt== 5:
+		easterText = "AHHHH"
+	else:
+		easterText = "Welcome to the Afternoon question Generator v1.3"
+	return easterText
 
 if __name__ == '__main__':
 	main()
