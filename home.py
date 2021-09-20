@@ -12,28 +12,29 @@ def main():
 	#Header
 	st.title("The Afternoon Check In")
 	st.text(getEasterText())
-	st.button('Refresh Question')
-	   
 
-	
 	team = getTeam()
-	copyText = buildCopy(team)
-
-	st.markdown(copyText.to_html(header=None,index=None),unsafe_allow_html=True)
-	
-	#this is a container running the button code. Stolen from stack overflow. Not quite sure how it works
-	copy_button = Button(label="Copy to Clipboard")
+	copyText = buildCopy(getTeam())
+	copy_button = Button(label="Copy to Clipboard", width = 150, css_classes=['css-qbe2hsedgvbvh1'])
 	copy_button.js_on_event("button_click", CustomJS(args=dict(copyText=copyText.to_csv(sep='\t',header=None,index=None)), code="""
-    navigator.clipboard.writeText(copyText);
-    """))
+    navigator.clipboard.writeText(copyText);"""))
 
+	st.button("Refresh Question")
+	
 	no_event = streamlit_bokeh_events(
     copy_button,
     events="GET_TEXT",
     key="get_text",
     refresh_on_update=True,
-    override_height=75,
+    override_height=40,
     debounce_time=0)
+
+	st.markdown(copyText.to_html(header=None,index=None),unsafe_allow_html=True,'style.css')
+	
+	#this is a container running the button code. Stolen from stack overflow. Not quite sure how it works
+	
+
+	
 	
 #Takes the team and randomizes the list, resets the index, and then puts Andy last
 
@@ -70,7 +71,7 @@ def getQuestion():
 	return randomQuestion
 
 def getEasterText():
-	randInt = randrange(1,20)
+	randInt = randrange(1,200)
 	easterText = " "
 	if randInt == 1:
 		easterText = "please give me a raise"
